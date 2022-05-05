@@ -2,7 +2,6 @@ import * as React from 'react';
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -10,7 +9,6 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import { ThemeProvider } from "@mui/material/styles";
-import { Paper, Button } from '@mui/material'
 ///import { createStyles, makeStyles } from '@mui/styles';
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -26,13 +24,14 @@ import cat2 from "assets/images/cat2.jpeg";
 import cat3 from "assets/images/cat3.jpeg";
 import cat4 from "assets/images/cat4.jpeg";
 //import DefaultFooter from "examples/Footers/DefaultFooter";
-import footerRoutes from "footer.routes";
 
-import Carousel from 'react-material-ui-carousel'
+
+/*import Carousel from 'react-material-ui-carousel'*/
+
 import "../node_modules/slick-carousel/slick/slick.css"; 
 import "../node_modules/slick-carousel/slick/slick-theme.css";
 
-import Card from "custom-components/Card";
+/*import Card from "custom-components/Card";*/
 import Slider from "react-slick";
 
 import LeftArrow from "assets/images/left-arrow.png"
@@ -44,20 +43,23 @@ import annonce1 from "assets/images/annonce1.jpeg";
 import annonce2 from "assets/images/annonce2.jpeg";
 import annonce3 from "assets/images/annonce3.jpeg";
 import annonce4 from "assets/images/annonce4.jpeg";
-import { Contrast } from '@mui/icons-material';
+/*import { Contrast } from '@mui/icons-material';*/
 
 import Header1 from './Header';
+import Footer1 from './Footer';
+import footerRoutes from "footer.routes";
 
 function Home() {
   return (
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <Header1/>
+    <HeroSection/> 
     <TestCarouselCategories/>
     <TestCarouselAnnonces/>
     <Newsletter/>
     <MKBox pt={6} px={1} bgColor="white">
-    <DefaultFooter content={footerRoutes}/>
+    <Footer1 content={footerRoutes}/> 
     </MKBox>
     </ThemeProvider>
   );
@@ -66,8 +68,7 @@ function Home() {
 export default Home;
 
 
-
-function Header() {
+function HeroSection() {
 
   const options1 = [
     { label: 'Casablanca', id: 1 },
@@ -84,149 +85,8 @@ function Header() {
     { label: 'Logement', id: 5 },
     { label: 'Animaux', id: 6 },
   ];
- 
-return  <MKBox component="header" position="relative" bgColor="white">
-<MKBox component="nav" position="relative" top="0.5rem" width="100%" bgColor="white">
-  <Container>
-    <Grid container flexDirection="row" alignItems="center">
-      <MKTypography
-        component={Link}
-        href="#"
-        variant="button"
-        color="#484848"
-        fontWeight="regular"
-        py={0.8125}
-        mr={2}
-      >
-        GILI.COM
-      </MKTypography>
-      <MKButton
-        variant="outlined"
-        color="white"
-        sx={{ display: { xs: "block", lg: "none" }, ml: "auto" }}
-      >
-        <MKBox component="i" color="white" className="fas fa-bars" />
-      </MKButton>
-      <MKBox
-        component="ul"
-        display={{ xs: "none", lg: "flex" }}
-        p={0}
-        my={0}
-        mx="auto"
-        sx={{ listStyle: "none" }}
-      >
-        <MKBox component="li">
-          <MKTypography
-            component={Link}
-            href="#"
-            variant="button"
-            color="#484848"
-            fontWeight="regular"
-            p={1}
-            onClick={(e) => e.preventDefault()}
-          >
-            Accueil
-          </MKTypography>
-        </MKBox>
-        <MKBox component="li">
-          <MKTypography
-            component={Link}
-            href="#"
-            variant="button"
-            color="#484848"
-            fontWeight="regular"
-            p={1}
-            onClick={(e) => e.preventDefault()}
-          >
-            Poster une Annonce
-          </MKTypography>
-        </MKBox>
-        <MKBox component="li">
-          <MKTypography
-            component={Link}
-            href="#"
-            variant="button"
-            color="#484848"
-            fontWeight="regular"
-            p={1}
-            onClick={(e) => e.preventDefault()}
-          >
-            Contactez nous
-          </MKTypography>
-        </MKBox>
-        <MKBox component="li">
-          <MKTypography
-            component={Link}
-            href="#"
-            variant="button"
-            color="#484848"
-            fontWeight="regular"
-            p={1}
-            onClick={(e) => e.preventDefault()}
-          >
-            S'authentifier
-          </MKTypography>
-        </MKBox>
-        <MKBox component="li">
-          <MKTypography
-            component={Link}
-            href="#"
-            variant="button"
-            color="#484848"
-            fontWeight="regular"
-            p={1}
-            onClick={(e) => e.preventDefault()}
-          >
-            Inscrivez-vous
-          </MKTypography>
-        </MKBox>
-
-      </MKBox>
-      <MKBox
-        component="ul"
-        display={{ xs: "none", lg: "flex" }}
-        p={0}
-        m={0}
-        sx={{ listStyle: "none" }}
-      >
-        <MKBox component="li">
-          <MKTypography
-            component={Link}
-            href="#"
-            variant="button"
-            p={1}
-            onClick={(e) => e.preventDefault()}
-          >
-            <MKBox component="i" color="white" className="fab fa-twitter" />
-          </MKTypography>
-        </MKBox>
-        <MKBox component="li">
-          <MKTypography
-            component={Link}
-            href="#"
-            variant="button"
-            p={1}
-            onClick={(e) => e.preventDefault()}
-          >
-            <MKBox component="i" color="white" className="fab fa-facebook" />
-          </MKTypography>
-        </MKBox>
-        <MKBox component="li">
-          <MKTypography
-            component={Link}
-            href="#"
-            variant="button"
-            p={1}
-            onClick={(e) => e.preventDefault()}
-          >
-            <MKBox component="i" color="white" className="fab fa-instagram" />
-          </MKTypography>
-        </MKBox>
-      </MKBox>
-    </Grid>
-  </Container>
-</MKBox>
-<MKBox
+  return ( 
+  <MKBox
   display="flex"
   alignItems="center"
   minHeight="70vh"
@@ -235,64 +95,56 @@ return  <MKBox component="header" position="relative" bgColor="white">
     //backgroundSize: "cover",
     //backgroundPosition: "center",
     backgroundColor:'#FFFFFF'
-  }}
->
-  <Container>
-  <Stack direction="row" spacing={30} mt={6} mb={7}>
+  }} > 
+
+  <Container> 
+  <Stack direction="row" spacing={30} mt={6} mb={7}> 
     <Grid container item xs={12} md={7} lg={6} flexDirection="column" justifyContent="center">
-      <MKTypography
-        variant="h1"
-        color="black"
-        mb={3}
-        sx={({ breakpoints, typography: { size } }) => ({
-          [breakpoints.down("md")]: {
-            fontSize: size["3xl"],
-          },
-        })}
-      >
-        Trouver l'annonce qui vous convient !
-      </MKTypography>
-      <MKTypography variant="body1" color="484848" opacity={0.8} pr={6} mr={6}>
-        Vous cherchez des meubles, des appareils, un véhicule, ou meme un logement? Vous trouverez surement ce qu'il vous faut sur GILI.Com 
-      </MKTypography>
-      <Stack direction="row" spacing={1} mt={3} alignItems="center" justifyContent="center">
-        <TextField id="outlined-basic" label="Recherche par mot clé" variant="outlined" />
-        <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={options1}
-        sx={{ width: 150 }}
-        renderInput={(params) => <TextField {...params} label="Ville" />}
-      /> <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={options2}
-      sx={{ width: 150 }}
-      renderInput={(params) => <TextField {...params} label="Catégorie" />}
-    />
-       
-        <MKButton color="black">RECHERCHER</MKButton>
-      </Stack>
-    </Grid>
-   <Box
+        <MKTypography
+          variant="h1"
+          color="black"
+          mb={3}
+          sx={({ breakpoints, typography: { size } }) => ({
+            [breakpoints.down("md")]: {
+              fontSize: size["3xl"],
+            },
+          })}
+        >
+          Trouver l'annonce qui vous convient !
+        </MKTypography>
+        <MKTypography variant="body1" color="484848" opacity={0.8} pr={6} mr={6}>
+          Vous cherchez des meubles, des appareils, un véhicule, ou meme un logement? Vous trouverez surement ce qu'il vous faut sur GILI.Com 
+        </MKTypography>
+        <Stack direction="row" spacing={1} mt={3} alignItems="center" justifyContent="center">
+          <TextField id="outlined-basic" label="Recherche par mot clé" variant="outlined" />
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={options1}
+            sx={{ width: 150 }}
+            renderInput={(params) => <TextField {...params} label="Ville" />}
+          /> 
+          <Autocomplete disablePortal  id="combo-box-demo" options={options2}  sx={{ width: 150 }}
+             renderInput={(params) => <TextField {...params} label="Catégorie" />} 
+          />
+         <MKButton color="black">RECHERCHER</MKButton>
+       </Stack>
+      </Grid>
+      <Box
         component="img"
         sx={{
-          /*height: 233,
-          width: 350,*/
+          //height: 233,
+          //width: 350,
           minWidth: { lg : 300 },
           maxHeight: { lg: 500 },
         }}
         alt="The house from the offer."
         src={mainImg}
       />
-  
-  
-  </Stack>
-  
+    </Stack>
   </Container>
-  
-</MKBox>
-</MKBox>
+  </MKBox>
+  );
 }
 
 
@@ -303,6 +155,7 @@ const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
 const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
   <img src={RightArrow} alt="nextArrow" {...props} />
 );
+
 const settings = {
       dots: false,
       infinite: true,
@@ -312,6 +165,7 @@ const settings = {
       prevArrow: <SlickArrowLeft />,
       nextArrow: <SlickArrowRight />,
     };
+
 function TestCarouselCategories(){
   return (
     <MKBox bgColor="white" pb={20}>
@@ -482,7 +336,7 @@ function Newsletter() {
     <MKBox component="section" bgColor="white">
       <Container>
         <Grid container alignItems="center">
-          <Grid item sx={12} md={6} sx={{ ml: { xs: 0, lg: 3 }, mb: { xs: 12, md: 0 } }}>
+          <Grid item md={6} sx={{ ml: { xs: 0, lg: 3 }, mb: { xs: 12, md: 0 } }}>
             <MKTypography variant="h4">Recevez toutes les nouveautés par Mail !</MKTypography>
             <MKTypography variant="body2" color="text" mb={3}>
               Inscrivez-vous pour notre newsletter
@@ -510,85 +364,3 @@ function Newsletter() {
 }
 
 
-function DefaultFooter({ content }) {
-  const { brand, socials, menus, copyright } = content;
-
-  return (
-    <MKBox component="footer" mt={6}>
-      <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={3} sx={{ ml: "auto", mb: 3 }}>
-            <MKBox>
-              <Link to={brand.route}>
-                <MKBox component="img" src={brand.image} alt={brand.name} maxWidth="9rem" mb={2} />
-              </Link>
-              <MKTypography variant="h6">{brand.name}</MKTypography>
-            </MKBox>
-            <MKBox display="flex" alignItems="center" mt={3}>
-              {socials.map(({ icon, link }, key) => (
-                <MKTypography
-                  key={link}
-                  component="a"
-                  href={link}
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="h5"
-                  color="dark"
-                  opacity={0.8}
-                  mr={key === socials.length - 1 ? 0 : 2.5}
-                >
-                  {icon}
-                </MKTypography>
-              ))}
-            </MKBox>
-          </Grid>
-          {menus.map(({ name: title, items }) => (
-            <Grid key={title} item xs={6} md={2} sx={{ mb: 3 }}>
-              <MKTypography
-                display="block"
-                variant="button"
-                fontWeight="bold"
-                textTransform="capitalize"
-                mb={1}
-              >
-                {title}
-              </MKTypography>
-              <MKBox component="ul" p={0} m={0} sx={{ listStyle: "none" }}>
-                {items.map(({ name, route, href }) => (
-                  <MKBox key={name} component="li" p={0} m={0} lineHeight={1.25}>
-                    {href ? (
-                      <MKTypography
-                        component="a"
-                        href={href}
-                        target="_blank"
-                        rel="noreferrer"
-                        variant="button"
-                        fontWeight="regular"
-                        textTransform="capitalize"
-                      >
-                        {name}
-                      </MKTypography>
-                    ) : (
-                      <MKTypography
-                        component={Link}
-                        to={route}
-                        variant="button"
-                        fontWeight="regular"
-                        textTransform="capitalize"
-                      >
-                        {name}
-                      </MKTypography>
-                    )}
-                  </MKBox>
-                ))}
-              </MKBox>
-            </Grid>
-          ))}
-          <Grid item xs={12} sx={{ textAlign: "center", my: 3 }}>
-            {copyright}
-          </Grid>
-        </Grid>
-      </Container>
-    </MKBox>
-  );
-}
