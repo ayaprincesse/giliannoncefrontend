@@ -8,7 +8,6 @@ import MKButton from 'components/MKButton';
 
 const Header1 = function() {
 
-  
     return (
         <MKBox component="header" position="relative" bgColor="white" pb="30px" >
           <MKBox component="nav" position="relative" top="0.5rem" width="100%" bgColor="white">
@@ -45,19 +44,6 @@ const Header1 = function() {
                         onClick={(e) => e.preventDefault()}
                     >
                         Accueil
-                    </MKTypography>
-                    </MKBox>
-                    <MKBox component="li">
-                    <MKTypography
-                        component={Link}
-                        href="#"
-                        variant="button"
-                        color="#484848"
-                        fontWeight="regular"
-                        p={1}
-                        onClick={(e) => e.preventDefault()}
-                    >
-                        Poster une Annonce
                     </MKTypography>
                     </MKBox>
                     <MKBox component="li">
