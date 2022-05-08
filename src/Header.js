@@ -4,7 +4,8 @@ import MKTypography from "components/MKTypography";
 import MKBox from 'components/MKBox';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
-import MKButton from 'components/MKButton';
+//import MKButton from 'components/MKButton';
+import App from 'App';
 
 const Header1 = function() {
 
@@ -75,7 +76,7 @@ const Header1 = function() {
                     <MKBox component="li">
                     <MKTypography
                         component={Link}
-                        href="#"
+                        href={"/signup"}
                         variant="button"
                         color="#484848"
                         fontWeight="regular"
