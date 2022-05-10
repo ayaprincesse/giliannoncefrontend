@@ -50,6 +50,8 @@ import Header1 from '../Header';
 import Footer1 from '../Footer';
 import footerRoutes from "footer.routes";
 
+import * as api from 'apis/index.js';
+
 const Home1 = function Home() {
   return (
     <ThemeProvider theme={theme}>

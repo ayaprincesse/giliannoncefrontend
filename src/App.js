@@ -10,9 +10,11 @@ import AnnonceDetails from 'pages/AnnonceDetails';
 
 import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-
 function App() {
+  
   return (
+    <div>
+      
   <div className="App">
     <Router>
        {/* we want the navbar to show up in every single page thats why we put it outside the Routes component*/}   
@@ -24,6 +26,7 @@ function App() {
       </Routes>
     </Router>
     
+    </div>
     </div>
     );
     }

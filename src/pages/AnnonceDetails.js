@@ -1,9 +1,9 @@
 import * as React from 'react';
-
-const Signuppage = () => {
+import App2 from "../App.js"
+const AnnonceDetails = () => {
     return (
-     <h1>C'EST ANNONCE DETAIL</h1>
+    <div>aaaa</div>
     );
 }
-
-export default Signuppage;
+// <App2 />
+export default AnnonceDetails;
