@@ -12,7 +12,7 @@ const Footer1 = function DefaultFooter({ content }) {
     const { brand, socials, menus, copyright } = content;
   
     return (
-      <MKBox component="footer" mt={6}>
+      <MKBox component="footer" mt={12} >
         <Container>
           <Grid container spacing={3}>
             <Grid item xs={12} md={3} sx={{ ml: "auto", mb: 3 }}>

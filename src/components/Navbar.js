@@ -13,7 +13,7 @@ function Navbar(){
 			<Link to ="/">Acceuil</Link>
 			<Link to ="/Signuppage">Créer un compte</Link>
 			<Link to ="/">S'authentifier</Link>
-			<Link to ="/">Poster une annonce</Link>
+			<Link to ="/">About us</Link>
 			<Link to ="/">Contact</Link>
 
 			<button><ReorderIcon /></button>
