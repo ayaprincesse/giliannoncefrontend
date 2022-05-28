@@ -270,7 +270,9 @@ function TestCarouselCategories(props)
     const cats =props.list;
     if (cats.length > 0)
     return (
-         props.list.map((element,i) => 
+         props.list.map((element,i) =>{
+         const link="/ResultatRecherche/"+element.Nom;
+         return (<Link to={link}>
           <Container>
           <Box
           component="img"
@@ -285,7 +287,8 @@ function TestCarouselCategories(props)
           src={urls.url_categories+element.image}
         /><Typography mb={4}>{element.Nom}</Typography>
             </Container>
-          )
+            </Link> 
+          );})
     );
     else { return (<h2>nothing yet</h2>)}
   }

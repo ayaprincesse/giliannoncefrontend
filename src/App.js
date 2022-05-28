@@ -43,7 +43,7 @@ function App() {
         <Route  path="/Aboutus"  element={<Aboutus />}/>
         <Route  path="/SignIn2"  element={<SignIn2 />}/>
         <Route  path="/SignUp2"  element={<SignUp2 />}/>
-        <Route  path="/ResultatRecherche"  element={<ResultatRecherche />}/>
+        <Route  path="/ResultatRecherche/:categorienom"  element={<ResultatRecherche />}/>
       </Routes>
       </Wrapper>
     </Router>

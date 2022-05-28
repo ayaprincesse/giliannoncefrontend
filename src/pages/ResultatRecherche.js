@@ -5,7 +5,8 @@ import footerRoutes from "footer.routes";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "assets/theme";
 
-import { useState,useEffect,useRef } from 'react'
+import { useState,useEffect,useRef} from 'react'
+import {useParams} from "react-router-dom"
 // @mui material components
 import Stack from "@mui/material/Stack";
 import CssBaseline from '@mui/material/CssBaseline';
@@ -35,14 +36,30 @@ import { alignProperty } from '@mui/material/styles/cssUtils';
 import axios from 'axios';
 import * as urls from 'apis';
 import {Link} from "react-router-dom";
+
 const ResultatRecherche = function Resultat() {
+  const {categorienom} = useParams()
+
+  useEffect(() => {
+    console.log("cat nom:",categorienom);
+  },[])
 
     const [categories, setCategoriesList] = useState([]);
+    const [annoncesparcat, setAnnoncesParCatList] = useState([]);
     const [annonces, setAnnoncesList] = useState([]);
     const [villes, setVillesList] = useState([]);
     useEffect(async () => {
-        //getvilles
-
+      //get annonces par cat
+      await axios.get(urls.url_main+"/annonce/categorie/"+categorienom)
+      .then((response) => {
+        console.log("haha",response.data.annonce)
+          setAnnoncesParCatList(response.data.annonce);
+          setAnnoncesList(response.data.annonce);
+      })
+      .catch((error) => {
+          console.log(error);
+          alert("une erreur s'est produite lors du traitement de votre demande");
+      })
       //get categories
       await axios.get(urls.url_main+"/categorie")
       .then((response) => {
@@ -53,6 +70,7 @@ const ResultatRecherche = function Resultat() {
           alert("une erreur s'est produite lors du traitement de votre demande");
       })
       //get annonces
+      /*
       await axios.get(urls.url_main+"/annonce")
       .then((response) => {
         console.log(response.data.list_annonces)
@@ -62,24 +80,39 @@ const ResultatRecherche = function Resultat() {
           console.log("error getannonces",error);
           alert("une erreur s'est produite lors du traitement de votre demande");
       })
-    },[]);
+    */
+    //get villes
+    await axios.get(urls.url_main+"/annonce/villes")
+    .then((response) => {
+      console.log(response.data.list_villes)
+      setVillesList(response.data.list_villes);
+    })
+    .catch((error) => {
+        console.log("error getvilles",error);
+        alert("une erreur s'est produite lors du traitement de votre demande");
+    })
+   },[]);
 
     return (
       <ThemeProvider theme={theme}>
       <CssBaseline /> 
-      <BarredeRecherche listCat={categories} listVilles={villes}/>
+      <BarredeRecherche listCat={categories} listVilles={villes} stateAnnoncesChanger={setAnnoncesList} />
+      <MKBox pt={6} px={1} bgColor="white"/>
+      <TestCarouselAnnoncesRecherche list={annonces} />
       <MKBox pt={6} px={1} bgColor="white">
       <Footer1 content={footerRoutes}/> 
       </MKBox>
       </ThemeProvider>
     );
 }
-//
+//<BarredeRecherche listCat={categories} listVilles={villes}/>
 function BarredeRecherche(props)
 {
   const [categoriesSelect, setcategoriesSelect] = useState([]);
+  const [villesSelect, setvillesSelect] = useState([]);
   const [motcle, setmotCle] = useState('');
   const [categorie, setCategorie] = useState('');
+  const [Ville, setVille] = useState('');
   const [annoncesTrouvees, setAnnoncesTrouvees] = useState([]);
   const myRef = useRef(null)
   
@@ -92,20 +125,20 @@ function BarredeRecherche(props)
     console.log("options2",options2);
   },[props.listCat])
 
-  const options1 = [
-    { label: 'Casablanca', id: 1 },
-    { label: 'Rabat', id: 2 },
-    { label: 'Marrakesh', id: 3 },
-    { label: 'Tanger', id: 4 },
-    { label: 'Agadir', id: 5 },
-  ];
+  useEffect(() => {
+    var options1=[];
+    props.listVilles.map((element,i) => {
+      options1.push({label:element.Ville,id:element.Id})
+    });
+    setvillesSelect(options1);
+    console.log("options1",options1);
+  },[props.listVilles])
+  
   
   const displayAnnoncesTrouves= () => {
     if(annoncesTrouvees.length>0){
       myRef.current.scrollIntoView();  
-      return(
-        <TestCarouselAnnoncesRecherche list={annoncesTrouvees}/>
-      )
+      props.stateAnnoncesChanger(annoncesTrouvees)
     }
   }
 
@@ -119,7 +152,27 @@ return (
     <Autocomplete
       disablePortal
       id="combo-box-demo"
-      options={options1}
+      options={villesSelect}
+      value={Ville}
+      onChange={(event, selectedOption) => {
+        var selectedV=selectedOption.label;
+        axios.get(urls.url_main+"/annonce/ville/"+selectedV)
+        .then((response) => {
+          console.log(response.data.annonces.length)
+            if(response.data.annonces.length>0){
+              setAnnoncesTrouvees(response.data.annonces);
+              setVille('');
+            }
+            else{
+              setVille('');
+              setAnnoncesTrouvees([]);
+              setTimeout(() => {
+                alert("aucune annonce trouvée")
+              }, "500")
+            }
+      });
+      }
+      }
       sx={{ width: 150 }}
       renderInput={(params) => <TextField {...params} label="Ville" />}
     /> 
@@ -196,8 +249,8 @@ const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 2,
+        slidesToShow: 3,
+        slidesToScroll: 3,
         prevArrow: <SlickArrowLeft />,
         nextArrow: <SlickArrowRight />,
       };
