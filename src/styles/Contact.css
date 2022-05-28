@@ -1,0 +1,72 @@
+.inputs {
+
+    border:0;
+    font-size: 14px;
+    padding: 16px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin-right: 9px;
+    
+}
+.all{
+    display: flex;
+    flex-direction: row;
+    margin: 90px 90px;
+    
+}
+.mess{
+    width: 92%;
+    height: 100px;
+    margin-top: 1em;
+    background-color: #fabaca;
+    border:0;
+   
+   
+}
+.rightside{
+    width :50% ;
+    margin-left: 5%;
+}
+.leftside{
+    width :50% ;
+}
+.ppp{
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+#remplir{
+    text-align: center;
+    margin-right: 9%;
+}
+.contact{
+    font-family: 'Anaheim',Helvetica,Arial,Lucida,sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+    color: #94beee !important;
+    text-shadow: 0.05em 0.04em 0em #fabaca;
+}
+.hesiter{
+    text-align: center;
+    width: 90%;
+}
+
+.envoyer{ 
+    margin-top: 1em;
+    margin-right: 7%;
+    float: right;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    border:0;
+    padding: 6px 16px;
+    border-radius: 4px;
+    background-color: #94beee;
+   
+}

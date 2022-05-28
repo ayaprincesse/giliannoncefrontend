@@ -1,0 +1,30 @@
+.nom1{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+}
+.nom2{
+    margin-top:35px;
+    margin-left: 40px;
+}
+
+.desc{
+    
+    width: 400px;
+    height: 250px;
+    padding: 7px;
+    background-color: #fabaca;
+    border: none;
+    
+}
+.nom4{
+    display: flex;
+    flex: column;
+}
+
+.btn2{
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+}

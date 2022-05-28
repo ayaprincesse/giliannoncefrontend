@@ -17,7 +17,7 @@ h2 {
     font-size: 30px;
 }
 .form-inner .form-group:focus-within label {
-    color: #FE4880;
+    color: #94beee;
 }
 
 form .form-inner input[type="submit"]{

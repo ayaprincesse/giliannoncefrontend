@@ -1,16 +1,5 @@
-import axios from 'axios';
+const url_main="http://localhost:3001";
+const url_categories=url_main+"/images/categories/";
+const url_annonces=url_main+"/images/annonces/";
 
-export const getCategories = () => {
-    try{
-        axios.get("http://localhost:3001/categorie")
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
-    catch(error){
-        console.log(error);
-    }
-}
+export { url_main, url_categories,url_annonces};
