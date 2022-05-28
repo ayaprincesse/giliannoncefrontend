@@ -16,19 +16,11 @@ import Footer1 from '../Footer';
 import footerRoutes from "footer.routes";
 import MKBox from "components/MKBox";
 import theme from "assets/theme";
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
+import axios from 'axios';
+import * as urls from 'apis';
+import { useState,useEffect,useRef} from 'react'
+import {useParams} from "react-router-dom"
 
 
 export default function SignUp() {
@@ -36,9 +28,31 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      firstname: data.get('firstName'),
+      lastname: data.get('lastName'),
       email: data.get('email'),
+      tel: data.get('tel'),
+      login: data.get('login'),
       password: data.get('password'),
     });
+  // POST request using axios with error handling
+  const user = {  "Nom":data.get('firstName'),
+  "Prenom":data.get('lastName'),
+  "Email": data.get('email'),
+ "Tel": data.get('tel'),
+  "Login": data.get('login'),
+  "Mdp": data.get('password') };
+  axios.post(urls.url_main+"/utilisateurs", user)
+      .then((response) => {
+          console.log("useradded",response.data.user_added)
+          alert("Utilisateur ajouté avec succes !")
+          window.location.reload(false);
+        })
+      .catch(error => {
+          this.setState({ errorMessage: error.message });
+          console.error('There was an error!', error);
+          alert("ERREUR DE CREATION DU USER!")
+      });
   };
 
   return (
@@ -83,7 +97,7 @@ export default function SignUp() {
                   autoComplete="family-name"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -91,6 +105,26 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="tel"
+                  label="tel"
+                  name="tel"
+                  autoComplete="tel"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="login"
+                  label="login"
+                  name="login"
+                  autoComplete="login"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -104,12 +138,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+              
             </Grid>
             <Box textAlign='center'>
             <Button
@@ -123,14 +152,13 @@ export default function SignUp() {
             </Box>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/SignIn2" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
       <MKBox pt={6} px={1} bgColor="white">
     <Footer1 content={footerRoutes}/> 

@@ -52,7 +52,7 @@ const ResultatRecherche = function Resultat() {
       //get annonces par cat
       await axios.get(urls.url_main+"/annonce/categorie/"+categorienom)
       .then((response) => {
-        console.log("haha",response.data.annonce)
+        console.log("annon",response.data.annonce)
           setAnnoncesParCatList(response.data.annonce);
           setAnnoncesList(response.data.annonce);
       })

@@ -53,7 +53,7 @@ const Home1 = function Home() {
 
   const [categories, setCategoriesList] = useState([]);
   const [annonces, setAnnoncesList] = useState([]);
-
+  const [villes, setVillesList] = useState([]);
   useEffect(async () => {
     //get categories
     await axios.get(urls.url_main+"/categorie")
@@ -74,14 +74,24 @@ const Home1 = function Home() {
         console.log("error getannonces",error);
         alert("une erreur s'est produite lors du traitement de votre demande");
     })
+    //get villes
+    await axios.get(urls.url_main+"/annonce/villes")
+    .then((response) => {
+      console.log(response.data.list_villes)
+      setVillesList(response.data.list_villes);
+    })
+    .catch((error) => {
+        console.log("error getvilles",error);
+        alert("une erreur s'est produite lors du traitement de votre demande");
+    })
   },[]);
 
 
   return (
     <ThemeProvider theme={theme}>
     <CssBaseline />
-    <HeroSection listCat={categories}/> 
-    <TestCarouselCategories list={categories}/>
+    <HeroSection listCat={categories} listVilles={villes}/> 
+    <TestCarouselCategories list={categories} />
     <TestCarouselAnnonces list={annonces}/>
     <Newsletter/>
     <MKBox pt={6} px={1} bgColor="white">
@@ -96,10 +106,11 @@ export default Home1;
 
 function HeroSection(props) {
  
- 
-  const [annoncesSelect, setAnnoncesSelect] = useState([]);
+  const [categoriesSelect, setcategoriesSelect] = useState([]);
+  const [villesSelect, setvillesSelect] = useState([]);
   const [motcle, setmotCle] = useState('');
   const [categorie, setCategorie] = useState('');
+  const [Ville, setVille] = useState('');
   const [annoncesTrouvees, setAnnoncesTrouvees] = useState([]);
   const myRef = useRef(null)
   
@@ -108,17 +119,18 @@ function HeroSection(props) {
     props.listCat.map((element,i) => {
       options2.push({label:element.Nom,id:element.Id})
     });
-    setAnnoncesSelect(options2);
+    setcategoriesSelect(options2);
     console.log("options2",options2);
   },[props.listCat])
 
-  const options1 = [
-    { label: 'Casablanca', id: 1 },
-    { label: 'Rabat', id: 2 },
-    { label: 'Marrakesh', id: 3 },
-    { label: 'Tanger', id: 4 },
-    { label: 'Agadir', id: 5 },
-  ];
+  useEffect(() => {
+    var options1=[];
+    props.listVilles.map((element,i) => {
+      options1.push({label:element.Ville,id:element.Id})
+    });
+    setvillesSelect(options1);
+    console.log("options1",options1);
+  },[props.listVilles])
   
   const displayAnnoncesTrouves= () => {
     if(annoncesTrouvees.length>0){
@@ -165,36 +177,56 @@ function HeroSection(props) {
           value={motcle}
           />
           <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={options1}
-            sx={{ width: 150 }}
-            renderInput={(params) => <TextField {...params} label="Ville" />}
-          /> 
-          <Autocomplete disablePortal  id="combo-box-demo" options={annoncesSelect}
-          value={categorie}
-          onChange={(event, selectedOption) => {
-            var selectedCat=selectedOption.label;
-            axios.get(urls.url_main+"/annonce/categorie/"+selectedCat)
-            .then((response) => {
-              console.log(response.data.annonce.length)
-                if(response.data.annonce.length>0){
-                  setAnnoncesTrouvees(response.data.annonce);
-                  setCategorie('');
-                }
-                else{
-                  setCategorie('');
-                  setAnnoncesTrouvees([]);
-                  setTimeout(() => {
-                    alert("aucune annonce trouvée")
-                  }, "500")
-                }
-          });
+      disablePortal
+      id="combo-box-demo"
+      options={villesSelect}
+      value={Ville}
+      onChange={(event, selectedOption) => {
+        var selectedV=selectedOption.label;
+        axios.get(urls.url_main+"/annonce/ville/"+selectedV)
+        .then((response) => {
+          console.log(response.data.annonces.length)
+            if(response.data.annonces.length>0){
+              setAnnoncesTrouvees(response.data.annonces);
+              setVille('');
+            }
+            else{
+              setVille('');
+              setAnnoncesTrouvees([]);
+              setTimeout(() => {
+                alert("aucune annonce trouvée")
+              }, "500")
+            }
+      });
+      }
+      }
+      sx={{ width: 150 }}
+      renderInput={(params) => <TextField {...params} label="Ville" />}
+    /> 
+    <Autocomplete disablePortal  id="combo-box-demo" options={categoriesSelect}
+    value={categorie}
+    onChange={(event, selectedOption) => {
+      var selectedCat=selectedOption.label;
+      axios.get(urls.url_main+"/annonce/categorie/"+selectedCat)
+      .then((response) => {
+        console.log(response.data.annonce.length)
+          if(response.data.annonce.length>0){
+            setAnnoncesTrouvees(response.data.annonce);
+            setCategorie('');
           }
+          else{
+            setCategorie('');
+            setAnnoncesTrouvees([]);
+            setTimeout(() => {
+              alert("aucune annonce trouvée")
+            }, "500")
           }
-           sx={{ width: 150 }}
-             renderInput={(params) => <TextField {...params} label="Catégorie"/>} 
-          />
+    });
+    }
+    }
+     sx={{ width: 150 }}
+       renderInput={(params) => <TextField {...params} label="Catégorie"/>} 
+    />
          <MKButton color="black" onClick={ () => { 
           // Resultatresearch(this.TextField.keywordrecherche.value);
           axios.get(urls.url_main+"/annonce/motcle/"+motcle)

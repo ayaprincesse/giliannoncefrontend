@@ -11,8 +11,8 @@ function Navbar(){
 		</div>
 		<div className="rightSide">
 			<Link to ="/">Acceuil</Link>
-			<Link to ="/Signuppage">Créer un compte</Link>
-			<Link to ="/Loginpage">S'authentifier</Link>
+			<Link to ="/SignUp2">Créer un compte</Link>
+			<Link to ="/SignIn2">S'authentifier</Link>
 			<Link to ="/Aboutus">About us</Link>
 			<Link to ="/Contact">Contact</Link>
 			<button><ReorderIcon /></button>
