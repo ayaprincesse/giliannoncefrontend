@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React ,{useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +16,12 @@ import Footer1 from '../Footer';
 import footerRoutes from "footer.routes";
 import MKBox from "components/MKBox";
 import theme from "assets/theme";
+
+
+import axios from 'axios';
+import * as urls from 'apis';
+import { useNavigate } from "react-router-dom";
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -33,13 +39,36 @@ function Copyright(props) {
 
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+
+  const nav = useNavigate();
+  useEffect(() => {
+		console.log("token",localStorage.getItem('token'));
+		console.log("userID",localStorage.getItem('userID'));
+	});
+   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      username: data.get('username'),
       password: data.get('password'),
     });
+    //login
+    await axios.post(urls.url_main+"/utilisateurs/login",
+    {
+      Login:data.get('username'),
+      Mdp:data.get('password')
+    })
+    .then((response) => {
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userID', response.data.user_logged.Id);   
+      localStorage.setItem('Nom',response.data.user_logged.Nom);
+      localStorage.setItem('Prenom',response.data.user_logged.Prenom);
+      nav("/EspaceUser");
+    })
+    .catch((error) => {
+        console.log("login",error);
+        alert("une erreur s'est produite lors du traitement de votre demande");
+    })
   };
 
   return (
@@ -66,10 +95,10 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -82,10 +111,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            
             <Button
               type="submit"
               fullWidth
@@ -97,7 +123,7 @@ export default function SignIn() {
             <Grid container>
              
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link variant="body2" href ="/SignUp2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

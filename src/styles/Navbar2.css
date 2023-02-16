@@ -6,7 +6,7 @@
     flex-direction: row;
   }
   
-  .navbar2 .leftSide2 {
+  .navbar2 .leftieSide2 {
     flex: 20%;
     height: 100%;
     display: flex;
@@ -14,7 +14,7 @@
     padding-left: 70px;
   }
   
-  .navbar2 .leftSide2 img {
+  .navbar2 .leftieSide2 img {
     width: 120px;
     padding-left: 0px;
   }
@@ -77,7 +77,7 @@
     .navbar2 .rightSide2 a {
       width: 70px;
     }
-    .navbar2 .leftSide2 {
+    .navbar2 .leftieSide2 {
       padding-left: 50px;
     }
   }

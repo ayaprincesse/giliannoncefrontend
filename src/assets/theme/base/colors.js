@@ -37,7 +37,10 @@ export default {
     main: "#ffffff",
     focus: "#ffffff",
   },
-
+  pink1: {
+    main: "#FB607F",
+  }, 
+  
   black: {
     light: "#000000",
     main: "#000000",

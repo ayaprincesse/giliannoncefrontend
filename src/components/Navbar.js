@@ -1,9 +1,13 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import Logo from "../assets/images/gililogo.png";
 import {Link} from "react-router-dom";
 import ReorderIcon from "@mui/icons-material/Reorder";
-import "../styles/Navbar.css"
+import "../styles/Navbar.css";
+import Button from '@mui/material/Button';
+
 function Navbar(){
+
+
 	return (
 	<div className ="navbar">
 		<div className="leftSide">
@@ -16,8 +20,6 @@ function Navbar(){
 			<Link to ="/Aboutus">About us</Link>
 			<Link to ="/Contact">Contact</Link>
 			<button><ReorderIcon /></button>
-			
-			
 		</div>
 	
 	</div>

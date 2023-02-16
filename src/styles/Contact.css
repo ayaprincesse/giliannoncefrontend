@@ -70,3 +70,10 @@
     background-color: #94beee;
    
 }
+input{
+    width: 220px;
+    padding: 7px;
+    background-color: #fabaca;
+    border: none;
+    
+}

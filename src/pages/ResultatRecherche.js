@@ -283,7 +283,6 @@ function TestCarouselAnnoncesRecherche(props){
            );}
             )
       );
-      else { return (<h2></h2>)}
     }
     return (
       <MKBox bgColor="white" pb={10}>

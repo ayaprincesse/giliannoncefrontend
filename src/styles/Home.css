@@ -1,33 +1,32 @@
-
 .Fruit img{
-    width: 350px;
-    height: 450px;
-    /*padding-left: 760px;*/
-  }
+  width: 350px;
+  height: 450px;
+  /*padding-left: 760px;*/
+}
 
-  .Fruit {
-    position : relative;
-    width: 40%;
-    height: 40%;
+.Fruit {
+  position : relative;
+  width: 40%;
+  height: 40%;
 
-  }
+}
 
 .Upper {
-    padding-top: 30px;
-    flex-direction: row;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding-left: 70px;
+  padding-top: 30px;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-left: 70px;
 }
 .Text p {
-    font-family: 'Playfair Display';
-    font-style: regular;
-    font-size: 50px;
-    flex : 50%;
+  font-family: 'Playfair Display';
+  font-style: regular;
+  font-size: 50px;
+  flex : 50%;
 }
 .Text {
-    padding-top: 50px;
+  padding-top: 50px;
 }
 
 .Left{

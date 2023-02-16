@@ -1,53 +1,85 @@
 import * as React from 'react';
-import { useState,useEffect,useRef } from 'react'
-// @mui material components
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Autocomplete from '@mui/material/Autocomplete';
-
-///import { createStyles, makeStyles } from '@mui/styles';
-// Material Kit 2 React components
-import MKBox from "components/MKBox";
-import MKButton from "components/MKButton";
-import MKTypography from "components/MKTypography";
-import MKInput from "components/MKInput";
+import Footer1 from '../../Footer';
+import footerRoutes from "../../footer.routes";
 
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "assets/theme";
-// Images
-import mainImg from "assets/images/lemon.jpeg";
 
-//import DefaultFooter from "examples/Footers/DefaultFooter";
+import { useState,useEffect,useRef} from 'react'
+import {useParams} from "react-router-dom"
+// @mui material components
+import Stack from "@mui/material/Stack";
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import Container from "@mui/material/Container";
+import Box from '@mui/material/Box'; 
+import Typography from '@mui/material/Typography';
 
-
+///import { createStyles, makeStyles } from '@mui/styles';
+// Material Kit 2 React components
+import MKButton from "components/MKButton";
+import MKBox from "components/MKBox";
 /*import Carousel from 'react-material-ui-carousel'*/
 
-import "../../node_modules/slick-carousel/slick/slick.css"; 
-import "../../node_modules/slick-carousel/slick/slick-theme.css";
+import "../../../node_modules/slick-carousel/slick/slick.css"; 
+import "../../../node_modules/slick-carousel/slick/slick-theme.css";
 
-/*import Card from "custom-components/Card";*/
 import Slider from "react-slick";
 
 import LeftArrow from "assets/images/left-arrow.png"
 import RightArrow from "assets/images/right-arrow.png"
-import newsletterimg from "assets/images/annonce1.jpeg";
 
-/*import { Contrast } from '@mui/icons-material';*/
-
-import Header1 from '../Header';
-import Footer1 from '../Footer';
-import footerRoutes from "footer.routes";
 
 import { alignProperty } from '@mui/material/styles/cssUtils';
 
 import axios from 'axios';
 import * as urls from 'apis';
 import {Link} from "react-router-dom";
+
+
+import { useNavigate } from "react-router-dom";
+function EspaceUser(props) {
+
+  const nav = useNavigate();
+  const logout=()=>{
+    localStorage.setItem('token',"");
+    localStorage.setItem('userID', "");   
+    nav("/SignIn2");
+  }
+	useEffect(() => {
+    
+		console.log("token",localStorage.getItem('token'));
+		console.log("userID",localStorage.getItem('userID'));
+    //this condition in all routes where we need to be logged
+		if(localStorage.getItem('token')=="" || localStorage.getItem('userID')==""){
+		  alert("Vous devez vous connecter !");
+		  nav("/SignIn2");
+		}
+    else {
+      props.isUserLoggedChange(true);
+    }
+   
+  
+	});
+
+  return (
+	  <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container component="main" maxWidth="xs">
+      <Typography align="center" mb={4}>WELCOME {localStorage.getItem('Prenom')+' '+localStorage.getItem('Nom')}</Typography>	
+     <Home1/>
+     <MKBox pt={6} px={1} bgColor="white">
+    <Footer1 content={footerRoutes}/> 
+    </MKBox>
+    </Container>
+    </ThemeProvider>
+  );
+};
+
+
+export default EspaceUser;
+
 
 const Home1 = function Home() {
 
@@ -88,20 +120,15 @@ const Home1 = function Home() {
 
 
   return (
-    <ThemeProvider theme={theme}>
-    <CssBaseline />
+    <div>
     <HeroSection listCat={categories} listVilles={villes}/> 
+    <MKBox pt={6} px={1} bgColor="white"></MKBox>
     <TestCarouselCategories list={categories} />
     <TestCarouselAnnonces list={annonces}/>
-    <Newsletter/>
-    <MKBox pt={6} px={1} bgColor="white">
-    <Footer1 content={footerRoutes}/> 
-    </MKBox>
-    </ThemeProvider>
+    </div>
   );
 }
 
-export default Home1;
 
 
 function HeroSection(props) {
@@ -142,37 +169,8 @@ function HeroSection(props) {
   }
   return ( 
     <MKBox bgColor="white">
-  <MKBox
-  display="flex"
-  alignItems="center"
-  minHeight="70vh"
-  sx={{
-    //backgroundImage: ({ palette: { gradients }, functions: { linearGradient, rgba } }) => `${linearGradient(rgba(gradients.dark.main, 0.5), rgba(gradients.dark.state, 0.5))}, url(${bgImage})`,
-    //backgroundSize: "cover",
-    //backgroundPosition: "center",
-    backgroundColor:'#FFFFFF'
-  }} > 
-
-  <Container> 
-  <Stack direction="row" spacing={30} mt={6} mb={7}> 
-    <Grid container item xs={12} md={7} lg={6} flexDirection="column" justifyContent="center">
-        <MKTypography
-          variant="h1"
-          color="black"
-          mb={3}
-          sx={({ breakpoints, typography: { size } }) => ({
-            [breakpoints.down("md")]: {
-              fontSize: size["3xl"],
-            },
-          })}
-        >
-          Trouver l'annonce qui vous convient !
-        </MKTypography>
-        <MKTypography variant="body1" color="484848" opacity={0.8} pr={6} mr={6}>
-          Vous cherchez des meubles, des appareils, un véhicule, ou meme un logement? Vous trouverez surement ce qu'il vous faut sur GILI.Com 
-        </MKTypography>
-        <Stack direction="row" spacing={1} mt={3} alignItems="center" justifyContent="center">
-          <TextField  id="outlined-basic" label="Recherche par mot clé" variant="outlined" 
+  <Stack direction="row" spacing={1} mt={3} alignItems="center" justifyContent="center"> 
+    <TextField  id="outlined-basic" label="Recherche par mot clé" variant="outlined" 
           onChange={(e)=>setmotCle(e.target.value)}
           value={motcle}
           />
@@ -254,21 +252,6 @@ function HeroSection(props) {
              RECHERCHER
           </MKButton>
        </Stack>
-      </Grid>
-      <Box
-        component="img"
-        sx={{
-          //height: 233,
-          //width: 350,
-          minWidth: { lg : 300 },
-          maxHeight: { lg: 500 },
-        }}
-        alt="The house from the offer."
-        src={mainImg}
-      />
-    </Stack>
-  </Container>
-  </MKBox>
   <div ref={myRef}>
   {displayAnnoncesTrouves()}
   </div>
@@ -343,7 +326,7 @@ function TestCarouselAnnonces(props){
     if (ads.length > 0)
     return (
          props.list.map((element,i) => {
-         const link="/AnnonceDetails/"+element.Id; 
+         const link="/AnnonceDetails/"+element.Id;
          return (<Link to={link}>
           <Container>
           <Box
@@ -418,37 +401,3 @@ function TestCarouselAnnoncesRecherche(props){
       </MKBox>
   );
 }
-
-function Newsletter() {
-  return (
-    <MKBox component="section" bgColor="white">
-      <Container>
-        <Grid container alignItems="center">
-          <Grid item md={6} sx={{ ml: { xs: 0, lg: 3 }, mb: { xs: 12, md: 0 } }}>
-            <MKTypography variant="h4">Recevez toutes les nouveautés par Mail !</MKTypography>
-            <MKTypography variant="body2" color="text" mb={3}>
-              Inscrivez-vous pour notre newsletter
-            </MKTypography>
-            <Grid container spacing={1}>
-              <Grid item xs={8}>
-                <MKInput type="email" label="Votre Email ..." fullWidth />
-              </Grid>
-              <Grid item xs={4}>
-                <MKButton color="primary" sx={{ height: "100%" }}>
-                  Subscribe
-                </MKButton>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} md={5} sx={{ ml: "auto" }}>
-            <MKBox position="relative">
-              <MKBox component="img" src={newsletterimg} alt="macbook" width="100%" />
-            </MKBox>
-          </Grid>
-        </Grid>
-      </Container>
-    </MKBox>
-  );
-}
-
-
